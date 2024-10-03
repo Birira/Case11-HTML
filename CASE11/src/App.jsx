@@ -7,6 +7,7 @@ import { Solicitud } from "./Components/Solicitud";
 import { SolicitudCrear } from "./Components/SolicitudCrear";
 import { SolicitudCon } from "./Components/SolicitudCon";
 import { Devoluciones } from "./Components/Devoluciones";
+import { Inventory } from "./Components/Inventory";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
           <Route path='/Solicitud' element={<Solicitud />}></Route>
           <Route path='/SolicitudCrear' element={<SolicitudCrear/>}></Route>
           <Route path='/SolicitudCon' element={<SolicitudCon/>}></Route>
+
+          <Route path='/Inventory' element={<Inventory />}></Route>
         </Routes>
       </BrowserRouter>
     </>
