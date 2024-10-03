@@ -1,0 +1,81 @@
+
+html body{
+    margin: 0;
+
+}
+
+/* Para el apartado de Solicitud.jsx */
+.title-to-Solicitud{
+    margin-top: 50px;
+    margin-bottom: 60px;
+    text-align: center;
+    font-family: sans-serif;
+}
+/* Para Solicitud.jsx */
+.card-to-Solicitud{
+    background: white;   
+    text-align: center;
+    width: 500px;
+    margin: auto;    
+    margin-top: 50px;
+    padding: 20px;    
+    box-shadow: 0px 0px 19px 2px #c6bbce;    
+    border-radius: 30px;   
+    margin: 30px; 
+    display: inline-block;
+
+}
+
+/* para el apartado de form de SolicitudCrear.jsx */
+.form-table-to-create-Solicitud{
+    padding: 20px 0px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0px 0px 35px #0006;
+    margin-top: 50px;
+    font-size: 16px;
+}
+
+.application-section-SolicitudCrear{
+    width: 80%;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border: none;
+    border: 1px solid #999;
+    box-shadow: 0px 0px 15px #0001;
+    border-radius: 4px;
+    margin: 10px;
+}
+   
+/* para el apartado de consultas de SolicitudCon.jsx */
+.search-bar-to-SolicitudCon{
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.lookup-table-to-SolicitudCon{
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0;
+    margin: auto;
+    margin-bottom: 20px;
+    
+}
+.lookup-table-to-SolicitudCon{
+    table, th, td {
+        border:2px solid #ddd;
+    }
+    
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom"
 import { AdminPanel } from './AdminPanel'
 import { AdminUsers } from './AdminUsers'
+import { Solicitud } from './Solicitud'
 
 export const Nav = () => {
   return (
@@ -23,7 +24,7 @@ export const Nav = () => {
                 <Link  className="navbar-brand">Devoluciones</Link>
             </div>
             <div className="col">
-                <Link className="navbar-brand">Solicitud</Link>
+            <Link to = "/Solicitud" className="navbar-brand">Solicitud</Link>
             </div>
         </div>
     </nav>
