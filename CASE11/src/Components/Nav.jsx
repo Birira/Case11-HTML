@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { AdminPanel } from './AdminPanel'
 import { AdminUsers } from './AdminUsers'
 import { Solicitud } from './Solicitud'
+import { Inventory } from './Inventory'
 
 export const Nav = () => {
   return (
@@ -18,7 +19,7 @@ export const Nav = () => {
                 <Link to = "/AdminUser" className="navbar-brand">Panel de Usuarios</Link>
             </div>
             <div className="col">
-                <Link  className="navbar-brand">Inventario</Link>
+                <Link to = "/Inventory" className="navbar-brand">Inventario</Link>
             </div>
             <div className="col">
                 <Link  className="navbar-brand">Devoluciones</Link>
