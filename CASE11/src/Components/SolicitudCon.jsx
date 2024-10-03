@@ -7,7 +7,7 @@ export const SolicitudCon= () => {
     return(
         <>
         <Nav></Nav>
-        <Link to="./Solicitud">
+        <Link to="/Solicitud">
         <button type="button" className="btn btn-secondary">Volver</button>
         </Link>
         <div className="title-to-Solicitud">

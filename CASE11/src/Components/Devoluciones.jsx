@@ -8,7 +8,7 @@ export const Devoluciones = () => {
     <Nav></Nav>
     <div className="container align-items-center w-25 p-3"/>
         <div className="card">
-            <div className="card-body">
+            <div className="container card-body">
                 <h2 className="text-center">Registro de Devolución</h2>
                 <form>
                     <div className="mb-3">
