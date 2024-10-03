@@ -1,10 +1,5 @@
 import React from 'react'
 import {Link} from "react-router-dom"
-import { AdminPanel } from './AdminPanel'
-import { AdminUsers } from './AdminUsers'
-import { Solicitud } from './Solicitud'
-import { Devoluciones } from './Devoluciones'
-import { Inventory } from './Inventory'
 
 export const Nav = () => {
   return (
