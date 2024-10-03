@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { AdminPanel } from './AdminPanel'
 import { AdminUsers } from './AdminUsers'
 import { Solicitud } from './Solicitud'
+import { Devoluciones } from './Devoluciones'
 
 export const Nav = () => {
   return (

@@ -6,6 +6,7 @@ import { AdminPanel } from "./Components/AdminPanel";
 import { Solicitud } from "./Components/Solicitud";
 import { SolicitudCrear } from "./Components/SolicitudCrear";
 import { SolicitudCon } from "./Components/SolicitudCon";
+import { Devoluciones } from "./Components/Devoluciones";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
           
           <Route path='/AdminUser' element={<AdminUsers />}></Route>
           <Route path='/AdminPanel' element={<AdminPanel />}></Route>
+
+          <Route path= "/Devoluciones" element={<Devoluciones />}></Route>
 
           <Route path='/Solicitud' element={<Solicitud />}></Route>
           <Route path='/SolicitudCrear' element={<SolicitudCrear/>}></Route>
