@@ -3,8 +3,15 @@ import { Nav } from './Nav';
 import './Css/style.css'
 import { Link } from "react-router-dom"
 
-
 export const Inventory = () => {
+
+    const products = [
+        { ID: 1, producto: "example", stock: 20, disponibilidad: 'true' },
+        { ID: 2, producto: "example2", stock: 20, disponibilidad: 'true' },
+        { ID: 3, producto: "example3", stock: 20, disponibilidad: 'true' },
+        { ID: 4, producto: "example4", stock: 20, disponibilidad: 'true' }
+    ]
+
     return (
         <>
             <Nav></Nav>
@@ -13,49 +20,23 @@ export const Inventory = () => {
             </div>
             <div class="container-fluid">
                 <table class='table table-bordered'>
-                    <td>
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Producto/Recurso</th>
                             <th>Stock</th>
                             <th>Disponibilidad</th>
                         </tr>
-                    </td>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Example</td>
-                            <td>Example: 10</td>
-                            <td>True or False</td>
+                        {products.map(item => (
+                            <tr key={item.ID}>
+                                <td>{item.ID}</td>
+                                <td>{item.producto}</td>
+                                <td>{item.stock}</td>
+                                <td>{item.disponibilidad}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Example</td>
-                            <td>Example: 10</td>
-                            <td>True or False</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Example</td>
-                            <td>Example: 10</td>
-                            <td>True or False</td>
-
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Example</td>
-                            <td>Example: 10</td>
-                            <td>True or False</td>
-
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Example</td>
-                            <td>Example: 10</td>
-                            <td>True or False</td>
-
-                        </tr>
-
+                        ))}
                     </tbody>
                 </table>
 
