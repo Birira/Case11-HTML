@@ -40,7 +40,7 @@ export const SolicitudCon= () => {
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Ana Gómez</td>
+                    <td>Juan Pérez</td>
                     <td>Micrófono</td>
                     <td>Aprobado</td>
                     <td >

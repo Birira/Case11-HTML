@@ -18,7 +18,7 @@ export const AdminUsers = () => {
                 </div>
                 <div className="container row">
                     <table className='table table-bordered'>
-                        <td>
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -26,7 +26,7 @@ export const AdminUsers = () => {
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
-                        </td>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td>Alexample</td>

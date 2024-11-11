@@ -11,16 +11,16 @@ export const Inventory = () => {
                     <h5 className="card-title">Admin de Inventario</h5>
                 </div>
             </div>
-            <div className="container">
+            <div className="container mt-5">
                 <table className='table table-bordered'>
-                    <td>
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Producto/Recurso</th>
                             <th>Stock</th>
                             <th>Disponibilidad</th>
                         </tr>
-                    </td>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>1</td>

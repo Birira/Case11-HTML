@@ -22,7 +22,7 @@ export const Solicitud = () => {
                         nombreButton="Crear" 
                         />
                     <CuadrosInteractivos
-                        titulo="Consultar Solicitudes" 
+                        titulo="Consultar Solicitudes Previas" 
                         texto="El pañolero revisa todas las solicitudes enviadas, organizadas en una tabla, y puede acceder a su validación o edición." 
                         direccion="/SolicitudCon" 
                         nombreButton="Consultar"

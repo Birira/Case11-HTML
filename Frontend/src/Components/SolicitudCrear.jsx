@@ -1,8 +1,7 @@
 import React from "react";
 import { Nav } from './Nav';
-import '../Css/style.css';
-import { Link } from "react-router-dom";
-
+import '../Css/style.css'
+import {Link} from "react-router-dom"
 
 export const SolicitudCrear= () => {
     return(
@@ -11,34 +10,44 @@ export const SolicitudCrear= () => {
         <Link to="/Solicitud">
         <button type="button" className="btn btn-secondary">Volver</button>
         </Link>
-        <div><center>
-            <form className="form-table-to-create-Solicitud">
-                <h2 className="title-to-Solicitud">Hola,<br /> ¿En que te puedo ayudar?</h2>
-                <div >
-                    <input className="application-section-SolicitudCrear" type="text" placeholder="Nombre Completo"/>
-                </div>
-                <div>
-                    <input className="application-section-SolicitudCrear" type="text" placeholder="Nombre de la solicitud"/>
-                </div>
-                <div>
-                    <input className="application-section-SolicitudCrear" type="text" placeholder="RUT (sin Guion, ni punto)"/>
-                </div>
-                <div >
-                    <input className="application-section-SolicitudCrear" type="email" placeholder="Email"/>
-                </div>
-                <div>
-                    <textarea className="application-section-SolicitudCrear" rows="8" placeholder="Deja tu mensaje"></textarea>
-                </div>
-                <div>
-                <center>
-                    <Link to='./Solicitud'>
-                    <button type="button" className="btn btn-secondary">Enviar</button>
-                    </Link>
-                </center>
-                </div>
-            </form>
-            </center>
+        <div className="title-to-Solicitud">
+            <h1>Consultar Solicitudes de Pañol</h1>
         </div>
-        </>
-    )
-}
+
+        <div >
+        <center>
+        <input className="search-bar-to-SolicitudCon" type="text" id="search" placeholder="Buscar solicitud..."/>  
+        <button>Enviar</button>
+        <table className="lookup-table-to-SolicitudCon">
+            <td>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del producto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </td>   
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Cámara, Trípode</td>
+                    <td>Pendiente</td>
+                    <td >
+                    <button type="button" className="btn btn-secondary">Editar</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Micrófono</td>
+                    <td>Aprobado</td>
+                    <td >
+                    <button type="button" className="btn btn-secondary">Editar</button>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            </center>
+            </div>
+            </>
+        )
+    }

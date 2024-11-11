@@ -14,4 +14,15 @@ routerInventory.post("/inventory", async (req, res) => {
     res.json({message: "Product Saved"});
 });
 
+routerInventory.delete("/inventory/:id", async (req, res) => {
+    try {
+        const userDelete = await inventory.findByIdAndDelete(req.params.id)
+        if (!userDelete) {
+            return res.status(404).json({ message: "usuario no encontrado" })
+        }
+        res.status(200).json({ message: "Usuario eliminado" })
+    } catch (err) {
+        res.status(500).json({ error: "error del sistema"})
+    }
+});
 module.exports = routerInventory;
