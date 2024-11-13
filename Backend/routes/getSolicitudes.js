@@ -4,8 +4,19 @@ const routerSolicitudes = Router();
 const Solicitudes = require("../models/Solicitudes")
 
 routerSolicitudes.get("/Solicitudes", async (req, res) => {
-    const product = await Solicitudes.find();
-    res.json(product);
+    const solicitud = await Solicitudes.find();
+    res.json(solicitud);
+});
+
+
+
+routerSolicitudes.get("/Solicitudes/:id", async (req, res) => {
+    try {
+        const user = await Solicitudes.findById(req.params.id);
+        res.json(user);
+    } catch (err) {
+        res.status(404).json(err)
+    }
 });
 
 routerSolicitudes.put("/Solicitudes/:id", async (req, res) => {
@@ -18,8 +29,8 @@ routerSolicitudes.put("/Solicitudes/:id", async (req, res) => {
 
 routerSolicitudes.post("/Solicitudes", async (req, res) => {
     const { solicitud, user, product, status } = req.body;
-    const newProduct = new Solicitudes({ solicitud, user, product, status });
-    await newProduct.save();
+    const newsolicitud = new Solicitudes({ solicitud, user, product, status });
+    await newsolicitud.save();
     res.json({ message: "Request Saved" });
 });
 

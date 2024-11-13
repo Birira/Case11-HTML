@@ -8,6 +8,17 @@ routerInventory.get("/inventory", async (req, res) => {
     res.json(product);
 });
 
+
+
+routerInventory.get("/inventory/:id", async (req, res) => {
+    try {
+        const item = await inventory.findById(req.params.id);
+        res.json(item);
+    } catch (err) {
+        res.status(404).json(err)
+    }
+});
+
 routerInventory.put("/inventory/:id", async (req, res) => {
     const inventoryId = req.params.id;
     const updated = req.body;
