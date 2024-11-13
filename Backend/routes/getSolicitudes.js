@@ -7,6 +7,15 @@ routerSolicitudes.get("/Solicitudes", async (req, res) => {
     const product = await Solicitudes.find();
     res.json(product);
 });
+
+routerSolicitudes.put("/Solicitudes/:id", async (req, res) => {
+    const solicitudId = req.params.id;
+    const updated = req.body;
+
+    const change = await Solicitudes.findByIdAndUpdate(solicitudId, updated, { new: true })
+    res.json(change)
+});
+
 routerSolicitudes.post("/Solicitudes", async (req, res) => {
     const { solicitud, user, product, status } = req.body;
     const newProduct = new Solicitudes({ solicitud, user, product, status });
@@ -19,11 +28,11 @@ routerSolicitudes.delete("/Solicitudes/:id", async (req, res) => {
     try {
         const SolicitudesDelete = await Solicitudes.findByIdAndDelete(req.params.id)
         if (!SolicitudesDelete) {
-            return res.status(404).json({ message: "usuario no encontrado" })
+            return res.status(404).json({ message: "solicitud no encontrado" })
         }
-        res.status(200).json({ message: "Usuario eliminado" })
+        res.status(200).json({ message: "solicitud eliminado" })
     } catch (err) {
-        res.status(500).json({ error: "error del sistema"})
+        res.status(500).json({ error: "error del sistema" })
     }
 });
 

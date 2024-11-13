@@ -10,6 +10,15 @@ routerUsers.get("/users", async (req, res) => {
     res.json(user);
 });
 
+routerUsers.get("/users/:id", async (req, res) => {
+    try {
+        const user = await users.findById(req.params.id);
+        res.json(user);
+    } catch (err) {
+        res.status(404).json(err)
+    }
+});
+
 routerUsers.post("/users", validateUser, async (req, res) => {
     const { name, email, password, role, status } = req.body;
     const newUser = new users({ name, email, password, role, status });
@@ -17,18 +26,14 @@ routerUsers.post("/users", validateUser, async (req, res) => {
     res.json({ message: "User Saved" });
 });
 
-/* routerUsers.patch("/users/:id", async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const updated = req.body
+routerUsers.put("/users/:id", async (req, res) => {
 
-        const change = await users.findOneAndUpdate(userId , updated, { new: true })
-        res.json(change)
+    const userId = req.params.id;
+    const updated = req.body
 
-    } catch (err) {
-        res.status().json({ error: err })
-    }
-}) */
+    const change = await users.findByIdAndUpdate(userId, updated, { new: true })
+    res.json(change)
+});
 
 routerUsers.delete("/users/:id", async (req, res) => {
     try {
