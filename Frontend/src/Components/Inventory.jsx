@@ -1,28 +1,17 @@
 import React, { useState } from "react";
 import { Nav } from "./Nav";
-import './Css/style.css'
 import { Link } from "react-router-dom"
+import axios from "axios";
 
 export const Inventory = () => {
-    const [formData, setFormData] = useState({
-        id: "",
-        product: "",
-        stock: "",
-        disponibilidad: false,
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === "checkbox" ? checked : value,
-        });
-    };
+    const [product, setProduct] = useState("");
+    const [stock, setStock] = useState(0);
+    const [disponibilidad, setDisponibilidad] = useState(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/api/inventory", formData);
+            const response = await axios.post("http://localhost:3000/api/inventory", { product, stock, disponibilidad });
             alert("Producto ingresado correctamente");
             console.log(response.data);
         } catch (error) {
@@ -30,6 +19,10 @@ export const Inventory = () => {
             alert("Error al enviar los datos");
         }
     };
+
+    const handleChange = (e) =>{
+        setDisponibilidad(e.target.checked);
+    }
 
     return (
         <>
@@ -70,8 +63,8 @@ export const Inventory = () => {
                                     className="form-control"
                                     type="text"
                                     name="product"
-                                    value={formData.product}
-                                    onChange={handleChange}
+                                    value={product}
+                                    onChange={(e) => setProduct(e.target.value)}
                                     required
                                 />
                             </div>
@@ -81,8 +74,8 @@ export const Inventory = () => {
                                     className="form-control"
                                     type="number"
                                     name="stock"
-                                    value={formData.stock}
-                                    onChange={handleChange}
+                                    value={stock}
+                                    onChange={(e) => setStock(e.target.value)}
                                     required
                                 />
                             </div>
@@ -92,7 +85,7 @@ export const Inventory = () => {
                                     className="form-check-input"
                                     type="checkbox"
                                     name="disponibilidad"
-                                    checked={formData.disponibilidad}
+                                    value= {disponibilidad}
                                     onChange={handleChange}
                                 />
                             </div>
@@ -103,6 +96,7 @@ export const Inventory = () => {
                             </div>
                         </form>
                     </div>
+                    {disponibilidad.toString()}
                 </div>
             </center>
         </>

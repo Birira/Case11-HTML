@@ -28,8 +28,8 @@ routerInventory.put("/inventory/:id", async (req, res) => {
 });
 
 routerInventory.post("/inventory", async (req, res) => {
-    const { product, stock, disponbilidad } = req.body;
-    const newProduct = new inventory({ product, stock, disponbilidad });
+    const { product, stock, disponibilidad } = req.body;
+    const newProduct = new inventory({ product, stock, disponibilidad });
     await newProduct.save();
     res.json({ message: "Product Saved" });
 });
