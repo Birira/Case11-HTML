@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Nav } from "./Nav";
+import './Css/style.css'
+import { Link } from "react-router-dom"
 
 export const Inventory = () => {
     const [formData, setFormData] = useState({
