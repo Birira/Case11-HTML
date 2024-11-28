@@ -1,53 +1,55 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Nav } from './Nav';
-import '../Css/style.css'
-import {Link} from "react-router-dom"
+import '../Css/style.css'; 
 
-export const SolicitudCrear= () => {
-    return(
+export const SolicitudCrear = () => {
+    const formularioCrearS = async (e) => {
+        e.preventDefault(); 
+
+        const datosFormulario = new FormData(e.target);
+
+        const solForm = {
+            Nombre: datosFormulario.get("Nombre"),
+            Rut: datosFormulario.get("Rut"),
+            SolicitudObjeto: datosFormulario.get("SolicitudObjeto"),
+            Email: datosFormulario.get("Email"),
+            Mensaje: datosFormulario.get("Mensaje")
+        };
+
+        try {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(solForm)
+            };
+            const peticion = await fetch("TU_URL_AQUI", requestOptions);
+            const { solicitud } = await peticion.json();
+            console.log(solicitud);
+        } catch (error) {
+            console.error("Error al enviar la solicitud:", error);
+        }
+    };
+
+    return (
         <>
-        <Nav></Nav>
-        <Link to="/Solicitud">
-        <button type="button" className="btn btn-secondary">Volver</button>
-        </Link>
-        <div className="title-to-Solicitud">
-            <h1>Consultar Solicitudes de Pañol</h1>
-        </div>
-
-        <div >
-        <center>
-        <input className="search-bar-to-SolicitudCon" type="text" id="search" placeholder="Buscar solicitud..."/>  
-        <button>Enviar</button>
-        <table className="lookup-table-to-SolicitudCon">
-            <td>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre del producto</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </td>   
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Cámara, Trípode</td>
-                    <td>Pendiente</td>
-                    <td >
-                    <button type="button" className="btn btn-secondary">Editar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Micrófono</td>
-                    <td>Aprobado</td>
-                    <td >
-                    <button type="button" className="btn btn-secondary">Editar</button>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            </center>
+            <Nav />
+            <Link to="/Solicitud">
+                <button type="button" className="btn btn-secondary">Volver</button>
+            </Link>
+            <div className="solicitud-crear-title">
+                <h1>Crear Solicitud</h1>
             </div>
-            </>
-        )
-    }
+            <center>
+                <form onSubmit={formularioCrearS} className="solicitud-crear-form">
+                    <input type="text" name="Nombre" placeholder="Ingrese su nombre" required className="input-field"/>
+                    <input type="text" name="Rut" placeholder="Ingrese su Rut" required className="input-field"/>
+                    <input type="text" name="SolicitudObjeto" placeholder="Ingrese el nombre del artículo que desea" required className="input-field"/>
+                    <input type="email" name="Email" placeholder="Ingrese su Email" required className="input-field"/>
+                    <textarea name="Mensaje" placeholder="Ingrese un mensaje (opcional)" className="textarea-field"></textarea>
+                    <button type="submit" className="btn btn-primary">Crear Solicitud</button>
+                </form>
+            </center>
+        </>
+    );
+};
