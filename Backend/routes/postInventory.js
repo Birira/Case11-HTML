@@ -4,7 +4,7 @@ const Inventory = require("../models/inventory");
 
 router.post("/inventory", async (req, res) => {
     try {
-
+        
         const { product, stock, disponibilidad } = req.body;
 
         if (!product || stock === undefined || disponibilidad === undefined) {

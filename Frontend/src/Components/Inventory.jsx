@@ -1,28 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Nav } from "./Nav";
-import { Link } from "react-router-dom"
 import axios from "axios";
 
 export const Inventory = () => {
     const [product, setProduct] = useState("");
     const [stock, setStock] = useState(0);
     const [disponibilidad, setDisponibilidad] = useState(true);
+    const [inventoryList, setInventoryList] = useState([]); 
 
+    // GetInventory
+    useEffect(() => {
+        const fetchInventory = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/api/inventory");
+                setInventoryList(response.data); // Datos guardados
+            } catch (error) {
+                console.error("Error al obtener los datos del inventario:", error);
+                alert("No se pudieron cargar los datos del inventario");
+            }
+        };
+
+        fetchInventory();
+    }, []);
+
+    // postInventory Enviar Formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post("http://localhost:3000/api/inventory", { product, stock, disponibilidad });
             alert("Producto ingresado correctamente");
             console.log(response.data);
+
+            // Actualizar lista
+            setInventoryList((prev) => [...prev, { product, stock, disponibilidad }]);
         } catch (error) {
             console.error("Error al enviar los datos:", error);
             alert("Error al enviar los datos");
         }
     };
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
         setDisponibilidad(e.target.checked);
-    }
+    };
 
     return (
         <>
@@ -43,12 +62,14 @@ export const Inventory = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Example</td>
-                            <td>10</td>
-                            <td>True</td>
-                        </tr>
+                        {inventoryList.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item._id}</td>
+                                <td>{item.product}</td>
+                                <td>{item.stock}</td>
+                                <td>{item.disponibilidad ? "Disponible" : "No disponible"}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -85,7 +106,7 @@ export const Inventory = () => {
                                     className="form-check-input"
                                     type="checkbox"
                                     name="disponibilidad"
-                                    value= {disponibilidad}
+                                    checked={disponibilidad}
                                     onChange={handleChange}
                                 />
                             </div>
@@ -96,7 +117,6 @@ export const Inventory = () => {
                             </div>
                         </form>
                     </div>
-                    {disponibilidad.toString()}
                 </div>
             </center>
         </>
