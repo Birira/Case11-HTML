@@ -14,7 +14,7 @@ export const AdminPanel = () => {
 
             <div className="container">
                 <div className="container row p-4">
-                    <Link to=""><button className="btn btn-primary rounded">Agregar Administrador</button></Link>
+                    <Link to="/AddAdmin"><button className="btn btn-primary rounded">Agregar Administrador</button></Link>
                 </div>
                 <table className='table table-bordered'>
                     <thead>
