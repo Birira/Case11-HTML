@@ -73,7 +73,7 @@ export const AddUser = () => {
                     </div>
                     <div className="mt-3">
                         <button className="btn btn-primary w-100" type="submit">
-                            Subir Administrador
+                            Subir Usuario
                         </button>
                     </div>
                 </form>

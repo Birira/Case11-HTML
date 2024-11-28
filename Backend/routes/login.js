@@ -18,7 +18,8 @@ routerLogin.post("/", async (req, res) => {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
         const token = user._id
-        res.json({ token })
+        const role = user.role
+        res.json({ token, role})
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error en el servidor' });

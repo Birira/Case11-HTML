@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export const Solicitud = () => {
     return (
         <>
-            <Nav />
             <div className="solicitud-container">
                 <h1 className="solicitud-title">Solicitud de Pañol</h1>
                 <br />

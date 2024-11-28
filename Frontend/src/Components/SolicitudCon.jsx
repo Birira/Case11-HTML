@@ -82,7 +82,6 @@ export const SolicitudCon = () => {
 
     return (
         <>
-            <Nav />
             <Link to="/Solicitud">
                 <button type="button" className="btn btn-secondary">Volver</button>
             </Link>

@@ -15,12 +15,18 @@ export const Login = () => {
 
         try {
             const response = await axios.post('http://localhost:3000/api/', { email, password });
-            console.log(response.data.message);
             setEmail(''); // Limpia los campos después del login
             setPassword('');
 
             // Redirige al usuario a la página principal o a la ruta que necesites
-            navigate('./AdminPanel');
+            if (response.data.role != "Admin") {
+                navigate("/Solicitud");
+            }
+            else {
+                navigate('/AdminPanel');
+            }
+
+
         } catch (error) {
             console.error('Error al iniciar sesión:', error);
             if (error.response && error.response.data && error.response.data.error) {
