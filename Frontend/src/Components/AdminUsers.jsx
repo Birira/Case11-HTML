@@ -5,6 +5,11 @@ import axios from "axios";
 
 export const AdminUsers = () => {
     const [UsersList, setUsersList] = useState([]);
+    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [role, setRole] = useState("Estudiante");
+    const [status, setStatus] = useState(true);
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -18,30 +23,8 @@ export const AdminUsers = () => {
         fetchUsers();
     }, []);
 
-
-    const actualizarSolicitud = async (id, datosActualizados) => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/solicitudes/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(datosActualizados),
-            });
-
-            if (!response.ok) throw new Error("Error al actualizar la solicitud");
-
-            const solicitudActualizada = await response.json();
-            setSolicitudes((prevSolicitudes) =>
-                prevSolicitudes.map((solicitud) =>
-                    solicitud._id === id ? solicitudActualizada : solicitud
-                )
-            );
-
-            setSolicitudEditando(null); // Cerrar el formulario de edición
-        } catch (error) {
-            console.error("Error al actualizar la solicitud:", error);
-        }
+    const handleChange = (e) => {
+        setStatus(e.target.checked);
     };
 
     const handleDelete = async (_id) => {
@@ -52,6 +35,22 @@ export const AdminUsers = () => {
             setUsersList(res.data); // Datos guardados
         } catch (error) {
             console.error('Error deleting book:', error);
+        }
+    };
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put(`http://localhost:3000/api/users/${id}`, { name, email, role, status });
+            alert("usuario actualizado correctamente");
+            console.log(response.data);
+
+            // Actualizar lista del put
+            setUsersList((prev) =>
+                prev.map((item) => (item._id === id ? { ...item, name, email, role, status } : item))
+            );
+        } catch (error) {
+            console.error("Error al editar el usuario:", error);
+            alert("Error al editar el usuario");
         }
     };
 
@@ -76,23 +75,82 @@ export const AdminUsers = () => {
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {UsersList.map((item) => (
-                            item.role !== "Admin" && (
-                                <tr key={item._id}>
-                                    <td>{item._id}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.role}</td>
-                                    <td>{item.status ? "Activo" : "Inactivo"}</td>
-                                    <td><button className='btn btn-warning m-1'>Editar</button><button className='btn btn-danger' onClick={() => handleDelete(item._id)}>X</button></td>
-                                </tr>)))}
+                            {UsersList.map((item) => (
+                                item.role !== "Admin" && (
+                                    <tr key={item._id}>
+                                        <td>{item._id}</td>
+                                        <td>{item.email}</td>
+                                        <td>{item.role}</td>
+                                        <td>{item.status ? "Activo" : "Inactivo"}</td>
+                                        <td><button className='btn btn-danger' onClick={() => handleDelete(item._id)}>X</button></td>
+                                    </tr>)))}
                         </tbody>
                     </table>
+                    <form>
+                        <div className='container w-50'>
+                            <div className="mb-3">
+                                <label className="form-label">ID</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="id"
+                                    value={id}
+                                    onChange={(e) => setId(e.target.value)}
+                                    placeholder="Introducir ID solo si desea agregar nuevo usuario"
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Nombre</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="product"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Email</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="product"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Rol</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="product"
+                                    value={role}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Status</label>
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    name="disponibilidad"
+                                    checked={status}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <button className="btn btn-success w-50" onClick={handleEdit}>
+                                Editar
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

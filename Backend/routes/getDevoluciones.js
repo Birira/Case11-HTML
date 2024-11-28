@@ -5,8 +5,8 @@ const devoluciones = require("../models/devoluciones.js")
 
 routerDevoluciones.get("/devoluciones", async (req, res) => {
     try {
-        const devoluciones = await devoluciones.find(); // Obtener todas las devoluciones
-        res.json(devoluciones); // Enviar como respuesta
+        const devolucion = await devoluciones.find(); // Obtener todas las devoluciones
+        res.json(devolucion); // Enviar como respuesta
     } catch (err) {
         console.error("Error al obtener las devoluciones:", err.message);
         res.status(500).json({ message: "Error al obtener las devoluciones", error: err.message });
