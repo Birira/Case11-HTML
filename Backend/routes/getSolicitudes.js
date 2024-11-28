@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const routerSolicitudes = Router();
 
-const Solicitudes = require("../models/Solicitudes")
+const Solicitudes = require("../models/solicitudes")
 
 routerSolicitudes.get("/Solicitudes", async (req, res) => {
     const solicitud = await Solicitudes.find();

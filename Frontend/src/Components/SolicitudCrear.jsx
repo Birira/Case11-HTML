@@ -5,32 +5,43 @@ import '../Css/style.css';
 
 export const SolicitudCrear = () => {
     const formularioCrearS = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault(); // Evita que la página se recargue al enviar el formulario
 
         const datosFormulario = new FormData(e.target);
 
         const solForm = {
-            Nombre: datosFormulario.get("Nombre"),
-            Rut: datosFormulario.get("Rut"),
-            SolicitudObjeto: datosFormulario.get("SolicitudObjeto"),
-            Email: datosFormulario.get("Email"),
-            Mensaje: datosFormulario.get("Mensaje")
+            user: datosFormulario.get("Nombre"), 
+            rut: datosFormulario.get("Rut"), 
+            product: datosFormulario.get("SolicitudObjeto"), 
+            email: datosFormulario.get("Email"), 
+            solicitud: datosFormulario.get("Mensaje"), 
+            status: "Pendiente" 
         };
 
         try {
+            
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(solForm)
+                body: JSON.stringify(solForm) // Convertimos el objeto a JSON
             };
-            const peticion = await fetch("TU_URL_AQUI", requestOptions);
-            const { solicitud } = await peticion.json();
-            console.log(solicitud);
+
+            
+            const peticion = await fetch("http://localhost:3000/api/Solicitudes", requestOptions);
+
+            if (peticion.ok) {
+                const { message } = await peticion.json();
+                console.log(message); // Mostramos el mensaje de éxito desde el backend
+                alert("Solicitud creada con éxito");
+            } else {
+                alert("Hubo un error al crear la solicitud");
+            }
         } catch (error) {
             console.error("Error al enviar la solicitud:", error);
+            alert("Error al enviar la solicitud");
         }
     };
-
+    
     return (
         <>
             <Nav />

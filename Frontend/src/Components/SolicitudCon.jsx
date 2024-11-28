@@ -8,9 +8,10 @@ export const SolicitudCon = () => {
     const [busqueda, setBusqueda] = useState("");
     const [solicitudEditando, setSolicitudEditando] = useState(null);
 
+    // Obtener solicitudes desde el backend
     const fetchSolicitudesConsultar = async () => {
         try {
-            const response = await fetch(/* por definir */);
+            const response = await fetch("http://localhost:3000/api/Solicitudes"); // Cambia la URL por la de tu API
             const data = await response.json();
             setSolicitudes(data);
         } catch (error) {
@@ -18,9 +19,10 @@ export const SolicitudCon = () => {
         }
     };
 
+    // Función para actualizar la solicitud en el backend
     const actualizarSolicitud = async (id, datosActualizados) => {
         try {
-            const response = await fetch( /* por definir */  {id}, {
+            const response = await fetch(`http://localhost:3000/api/Solicitudes/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,6 +45,7 @@ export const SolicitudCon = () => {
         }
     };
 
+    // Filtrar las solicitudes por RUT
     const solicitudesFiltradas = busqueda
         ? solicitudes.filter((solicitud) =>
             solicitud.rut.toLowerCase().includes(busqueda.toLowerCase())
@@ -78,7 +81,7 @@ export const SolicitudCon = () => {
                     <table className="tabla-solicitudes">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>RUT</th>
                                 <th>Usuario</th>
                                 <th>Fecha Solicitud</th>
                                 <th>Estado</th>
@@ -89,9 +92,9 @@ export const SolicitudCon = () => {
                             {solicitudesFiltradas.map((solicitud) => (
                                 <tr key={solicitud._id}>
                                     <td>{solicitud.rut}</td>
-                                    <td>{solicitud.nombre}</td>
+                                    <td>{solicitud.user}</td>
                                     <td>{solicitud.fechaSolicitud}</td>
-                                    <td>{solicitud.estado}</td>
+                                    <td>{solicitud.status}</td>
                                     <td>
                                         <button 
                                             onClick={() => setSolicitudEditando(solicitud)} 
@@ -134,16 +137,24 @@ const FormularioEditar = ({ solicitud, onSave, onCancel }) => {
             />
             <input
                 type="text"
-                value={datos.nombre}
-                onChange={(e) => setDatos({ ...datos, nombre: e.target.value })}
-                placeholder="Nombre"
+                value={datos.user}
+                onChange={(e) => setDatos({ ...datos, user: e.target.value })}
+                placeholder="Usuario"
             />
             <textarea
-                value={datos.descripcion}
-                onChange={(e) => setDatos({ ...datos, descripcion: e.target.value })}
+                value={datos.product}
+                onChange={(e) => setDatos({ ...datos, product: e.target.value })}
                 className="textarea-field"
                 placeholder="Descripción"
             />
+            <select
+                value={datos.status}
+                onChange={(e) => setDatos({ ...datos, status: e.target.value })}
+            >
+                <option value="Pendiente">Pendiente</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Rechazada">Rechazada</option>
+            </select>
             <button type="submit" className="btn btn-primary">Guardar</button>
             <button type="button" onClick={onCancel} className="btn btn-secondary">Cancelar</button>
         </form>
