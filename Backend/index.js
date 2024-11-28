@@ -27,12 +27,14 @@ app.use("/api", require("./routes/login"));
 app.use("/api", require("./routes/getUsers"));
 app.use("/api", require("./routes/getInventory"));
 app.use("/api", require("./routes/getSolicitudes"));
+app.use("/api", require("./routes/postInventory"));
+
 
 //archivos estaticos
 app.use(express.static(path.join(__dirname, "public")));
 
 //Iniciar app
 app.listen(app.get("port"), () => {
-    console.log(`           http://localhost:3000`)
+    console.log('http://localhost:3000')
     console.log("puerto del servidor", app.get("port"))
 })
