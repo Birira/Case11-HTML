@@ -12,10 +12,26 @@ routerInventory.get("/inventory", async (req, res) => {
 
 routerInventory.get("/inventory/:id", async (req, res) => {
     try {
+        // Intentar buscar el elemento por ID
         const item = await inventory.findById(req.params.id);
+
+        // Si no se encuentra el elemento, devolver un error 404
+        if (!item) {
+            return res.status(404).json({ message: 'Préstamo no encontrado' });
+        }
+
+        // Si el elemento se encuentra, devolverlo como JSON
         res.json(item);
+
     } catch (err) {
-        res.status(404).json(err)
+        // Si ocurre un error en la base de datos o en la lógica, manejarlo aquí
+        console.error('Error al obtener el préstamo:', err.message);
+
+        // Devolver un error 500 con el mensaje del error
+        res.status(500).json({
+            message: 'Error al obtener el préstamo',
+            error: err.message
+        });
     }
 });
 
