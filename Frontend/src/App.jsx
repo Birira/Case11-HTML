@@ -11,8 +11,6 @@ import { Inventory } from "./Components/Inventory";
 import { AddAdmin } from "./Components/AddAdmin";
 import { AddUser } from "./Components/AddUser";
 
-import { AddAdmin } from "./Components/AddAdmin";
-
 function App() {
 
   return (
