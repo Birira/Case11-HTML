@@ -8,6 +8,8 @@ import { SolicitudCrear } from "./Components/SolicitudCrear";
 import { SolicitudCon } from "./Components/SolicitudCon";
 import { Devoluciones } from "./Components/Devoluciones";
 import { Inventory } from "./Components/Inventory";
+import { AddAdmin } from "./Components/AddAdmin";
+import { AddUser } from "./Components/AddUser";
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path='/Solicitud' element={<Solicitud />}></Route>
           <Route path='/SolicitudCrear' element={<SolicitudCrear/>}></Route>
           <Route path='/SolicitudCon' element={<SolicitudCon/>}></Route>
+          <Route path="AddAdmin" element = {<AddAdmin/>}></Route>
+          <Route path="AddUser" element = {<AddUser/>}></Route>
 
           <Route path='/Inventory' element={<Inventory />}></Route>
         </Routes>

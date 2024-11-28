@@ -14,7 +14,7 @@ export const AdminUsers = () => {
             </div>
             <div className="container">
                 <div className="container row p-4">
-                    <Link to="AddUser"><button className="btn btn-primary rounded">Agregar Usuarios</button></Link>
+                    <Link to="/AddUser"><button className="btn btn-primary rounded">Agregar Usuarios</button></Link>
                 </div>
                 <div className="container row">
                     <table className='table table-bordered'>
