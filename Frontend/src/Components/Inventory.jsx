@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Nav } from "./Nav";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 export const Inventory = () => {
     const [product, setProduct] = useState("");
     const [stock, setStock] = useState(0);
     const [disponibilidad, setDisponibilidad] = useState(true);
     const [inventoryList, setInventoryList] = useState([]); 
+    const navigate=useNavigate();
+    const handleEditar=(id)=>navigate(`/Devoluciones/${id}`);
 
     // GetInventory
     useEffect(() => {
@@ -59,6 +63,7 @@ export const Inventory = () => {
                             <th>Producto/Recurso</th>
                             <th>Stock</th>
                             <th>Disponibilidad</th>
+                            <th>Devoluciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +73,7 @@ export const Inventory = () => {
                                 <td>{item.product}</td>
                                 <td>{item.stock}</td>
                                 <td>{item.disponibilidad ? "Disponible" : "No disponible"}</td>
+                                <td><button onClick={()=>handleEditar(item._id)}>Devolver</button></td>
                             </tr>
                         ))}
                     </tbody>
