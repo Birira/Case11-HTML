@@ -3,7 +3,7 @@ import { Nav } from "./Nav";
 import { Link } from "react-router-dom"
 import axios from "axios";
 
-export const AddAdmin = () => {
+export const AddUser = () => {
     return (
         <div>
             <Nav />
@@ -48,7 +48,7 @@ export const AddAdmin = () => {
                     </div>
                     <div className="mt-3">
                         <button className="btn btn-primary w-100" type="submit">
-                            Subir Administrador
+                            Subir Usuario
                         </button>
                     </div>
                 </form>
