@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Inventory = () => {
+    const [id, setId] = useState(""); // Nuevo estado para ID
     const [product, setProduct] = useState("");
     const [stock, setStock] = useState(0);
     const [disponibilidad, setDisponibilidad] = useState(true);
@@ -12,12 +13,13 @@ export const Inventory = () => {
     const navigate=useNavigate();
     const handleEditar=(id)=>navigate(`/Devoluciones/${id}`);
 
+
     // GetInventory
     useEffect(() => {
         const fetchInventory = async () => {
             try {
                 const response = await axios.get("http://localhost:3000/api/inventory");
-                setInventoryList(response.data); // Datos guardados
+                setInventoryList(response.data); // Guardar datos en el estado
             } catch (error) {
                 console.error("Error al obtener los datos del inventario:", error);
                 alert("No se pudieron cargar los datos del inventario");
@@ -27,7 +29,7 @@ export const Inventory = () => {
         fetchInventory();
     }, []);
 
-    // postInventory Enviar Formulario
+    // PostInventory de formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -35,11 +37,29 @@ export const Inventory = () => {
             alert("Producto ingresado correctamente");
             console.log(response.data);
 
-            // Actualizar lista
+            // Actualizar lista del get
             setInventoryList((prev) => [...prev, { product, stock, disponibilidad }]);
         } catch (error) {
             console.error("Error al enviar los datos:", error);
             alert("Error al enviar los datos");
+        }
+    };
+
+    // putInventory desde el formulario
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put(`http://localhost:3000/api/inventory/${id}`, { product, stock, disponibilidad });
+            alert("Producto actualizado correctamente");
+            console.log(response.data);
+
+            // Actualizar lista del put
+            setInventoryList((prev) =>
+                prev.map((item) => (item._id === id ? { ...item, product, stock, disponibilidad } : item))
+            );
+        } catch (error) {
+            console.error("Error al editar el producto:", error);
+            alert("Error al editar el producto");
         }
     };
 
@@ -82,8 +102,19 @@ export const Inventory = () => {
             <center>
                 <div className="container align-items-center w-25 p-3">
                     <div className="card-body">
-                        <h2>Ingreso del producto</h2>
-                        <form onSubmit={handleSubmit}>
+                        <h2>Ingreso/Edición de Producto</h2>
+                        <form>
+                            <div className="mb-3">
+                                <label className="form-label">ID</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="id"
+                                    value={id}
+                                    onChange={(e) => setId(e.target.value)}
+                                    placeholder="Introducir ID solo si desea agregar nuevo producto"
+                                />
+                            </div>
                             <div className="mb-3">
                                 <label className="form-label">Nombre</label>
                                 <input
@@ -116,9 +147,12 @@ export const Inventory = () => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="mb-3">
-                                <button className="btn btn-primary w-100" type="submit">
-                                    Enviar
+                            <div className="mb-3 d-flex gap-2">
+                                <button className="btn btn-primary w-50" onClick={handleSubmit}>
+                                    Agregar
+                                </button>
+                                <button className="btn btn-success w-50" onClick={handleEdit}>
+                                    Editar
                                 </button>
                             </div>
                         </form>
@@ -128,3 +162,4 @@ export const Inventory = () => {
         </>
     );
 };
+

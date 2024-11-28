@@ -1,81 +1,425 @@
-
-html body{
-    margin: 0;
-
+/* solicitud  */
+/* Estilos generales de la página */
+.solicitud-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Para el apartado de Solicitud.jsx */
-.title-to-Solicitud{
-    margin-top: 50px;
-    margin-bottom: 60px;
+.solicitud-title {
+    font-size: 32px;
     text-align: center;
-    font-family: sans-serif;
+    margin-bottom: 30px;
+    color: #333;
 }
-/* Para Solicitud.jsx */
-.card-to-Solicitud{
-    background: white;   
+
+.solicitud-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
-    width: 500px;
-    margin: auto;    
-    margin-top: 50px;
-    padding: 20px;    
-    box-shadow: 0px 0px 19px 2px #c6bbce;    
-    border-radius: 30px;   
-    margin: 30px; 
-    display: inline-block;
-
+    transition: transform 0.3s ease;
 }
 
-/* para el apartado de form de SolicitudCrear.jsx */
-.form-table-to-create-Solicitud{
-    padding: 20px 0px;
-    max-width: 500px;
-    margin: auto;
-    box-shadow: 0px 0px 35px #0006;
-    margin-top: 50px;
+.solicitud-card:hover {
+    transform: translateY(-10px);
+}
+
+.solicitud-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.solicitud-card p {
     font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
 }
 
-.application-section-SolicitudCrear{
-    width: 80%;
-    box-sizing: border-box;
-    padding: 6px 12px;
+.solicitud-card .btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border: 1px solid #999;
-    box-shadow: 0px 0px 15px #0001;
-    border-radius: 4px;
-    margin: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-   
-/* para el apartado de consultas de SolicitudCon.jsx */
-.search-bar-to-SolicitudCon{
+
+.solicitud-card .btn:hover {
+    background-color: #0056b3;
+}
+
+.solicitud-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .solicitud-card {
+        width: 100%;
+    }
+}
+/* segundo crear solicitud */
+/* Estilos generales para el formulario */
+.solicitud-crear-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.solicitud-crear-title h1 {
+    font-size: 2rem;
+    color: #333;
     text-align: center;
-    margin: 0;
     margin-bottom: 20px;
+}
+
+/* Estilos para los campos de texto */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+.input-field:focus {
+    border: 1px solid #0066cc;
+    outline: none;
+}
+
+/* Estilos para el textarea */
+.textarea-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    height: 150px;
+    resize: none;
+    transition: border 0.3s ease;
+}
+
+.textarea-field:focus {
+    border: 1px solid #0066cc;
+    outline: none;
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.btn-primary {
+    background-color: #0066cc;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #e1e1e1;
+    transform: scale(1.05);
+}
+
+/* tercer consultar solicitud */
+/* Estilos generales para el contenedor de solicitudes */
+.contenedor-solicitudes {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1000px;
+}
+
+.titulo-solicitud h1 {
+    text-align: center;
+    color: #000;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilos para la barra de búsqueda */
+.barra-busqueda {
+    padding: 12px;
+    font-size: 1rem;
+    width: 80%;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.barra-busqueda:focus {
+    border: 1px solid #000;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Estilos para la tabla de solicitudes */
+.tabla-solicitudes {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
-.lookup-table-to-SolicitudCon{
-    width: 90%;
-    border-collapse: collapse;
-    margin: 0;
-    margin: auto;
-    margin-bottom: 20px;
-    
+.tabla-solicitudes th, .tabla-solicitudes td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
 }
-.lookup-table-to-SolicitudCon{
-    table, th, td {
-        border:2px solid #ddd;
-    }
-    
-    th, td {
-        padding: 12px;
-        text-align: left;
-    }
-    th {
-        background-color: #f4f4f4;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
+
+.tabla-solicitudes th {
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+}
+
+.tabla-solicitudes td {
+    background-color: #fff;
+    color: #333;
+}
+
+.tabla-solicitudes tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para los botones de acción en la tabla */
+.btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #000;
+}
+
+.btn-primary:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+/* Estilos para el formulario de edición */
+.formulario-editar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.formulario-editar h2 {
+    font-size: 1.8rem;
+    color: #000;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilos para los campos de entrada en el formulario de edición */
+.formulario-editar input,
+.formulario-editar textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.formulario-editar textarea {
+    height: 150px;
+    resize: none;
+}
+
+.formulario-editar input:focus,
+.formulario-editar textarea:focus {
+    border: 1px solid #000;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Estilos para los botones del formulario de edición */
+.formulario-editar button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.formulario-editar .btn-primary {
+    background-color: #000;
+    color: #fff;
+}
+
+.formulario-editar .btn-primary:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+.formulario-editar .btn-secondary {
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.formulario-editar .btn-secondary:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+/* Fondo oscuro que cubre toda la pantalla */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);  /* Fondo oscuro con opacidad */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;  /* Asegura que el modal esté por encima de otros contenidos */
+}
+
+/* Estilo del contenido del modal (formulario) */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del formulario dentro del modal */
+.formulario-editar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* Fondo oscuro que cubre toda la pantalla */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);  /* Fondo oscuro con opacidad */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;  /* Asegura que el modal esté por encima de otros contenidos */
+}
+
+/* Estilo del contenido del modal (formulario) */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del formulario dentro del modal */
+.formulario-editar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field, .textarea-field, select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+button {
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+textarea {
+    min-height: 100px;
 }
