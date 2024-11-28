@@ -1,49 +1,82 @@
 const { Router } = require("express");
 const routerSolicitudes = Router();
+const Solicitudes = require("../models/solicitudes.js");
 
-const Solicitudes = require("../models/solicitudes")
-
-routerSolicitudes.get("/Solicitudes", async (req, res) => {
-    const solicitud = await Solicitudes.find();
-    res.json(solicitud);
-});
-
-
-
-routerSolicitudes.get("/Solicitudes/:id", async (req, res) => {
+// Obtener todas las solicitudes
+routerSolicitudes.get("/solicitudes", async (req, res) => {
     try {
-        const user = await Solicitudes.findById(req.params.id);
-        res.json(user);
+        const solicitud = await Solicitudes.find();
+        res.json(solicitud);
     } catch (err) {
-        res.status(404).json(err)
+        res.status(500).json({ message: "Error al obtener las solicitudes", error: err });
     }
 });
 
-routerSolicitudes.put("/Solicitudes/:id", async (req, res) => {
-    const solicitudId = req.params.id;
-    const updated = req.body;
-
-    const change = await Solicitudes.findByIdAndUpdate(solicitudId, updated, { new: true })
-    res.json(change)
-});
-
-routerSolicitudes.post("/Solicitudes", async (req, res) => {
-    const { solicitud, user, product, status } = req.body;
-    const newsolicitud = new Solicitudes({ solicitud, user, product, status });
-    await newsolicitud.save();
-    res.json({ message: "Request Saved" });
-});
-
-
-routerSolicitudes.delete("/Solicitudes/:id", async (req, res) => {
+// Buscar solicitudes por RUT
+routerSolicitudes.get("/solicitudes/rut/:rut", async (req, res) => {
     try {
-        const SolicitudesDelete = await Solicitudes.findByIdAndDelete(req.params.id)
-        if (!SolicitudesDelete) {
-            return res.status(404).json({ message: "solicitud no encontrado" })
+        const solicitudes = await Solicitudes.find({ rut: req.params.rut });
+        if (!solicitudes.length) {
+            return res.status(404).json({ message: "No se encontraron solicitudes con ese RUT" });
         }
-        res.status(200).json({ message: "solicitud eliminado" })
+        res.json(solicitudes);
     } catch (err) {
-        res.status(500).json({ error: "error del sistema" })
+        res.status(500).json({ message: "Error al obtener las solicitudes por RUT", error: err });
+    }
+});
+
+// Actualizar una solicitud por su ID
+routerSolicitudes.put("/solicitudes/:id", async (req, res) => {
+    const solicitudId = req.params.id;
+    const datosActualizados = req.body;
+
+    try {
+        const solicitudActualizada = await Solicitudes.findByIdAndUpdate(solicitudId, datosActualizados, { new: true });
+        if (!solicitudActualizada) {
+            return res.status(404).json({ message: "Solicitud no encontrada para actualizar" });
+        }
+        res.json(solicitudActualizada);
+    } catch (err) {
+        res.status(500).json({ message: "Error al actualizar la solicitud", error: err });
+    }
+});
+
+// Crear una nueva solicitud
+routerSolicitudes.post("/solicitudes", async (req, res) => {
+    const { user, rut, product, email, solicitud, status } = req.body;
+
+    // Verificar que todos los campos requeridos estén presentes
+    if (!user || !rut || !product || !email || !status) {
+        return res.status(400).json({ message: "Faltan datos en la solicitud" });
+    }
+
+    const nuevaSolicitud = new Solicitudes({
+        user, 
+        rut, 
+        product, 
+        email, 
+        solicitud: solicitud || "Sin descripción",  // Si falta, asignar valor por defecto
+        status
+    });
+
+    try {
+        await nuevaSolicitud.save();
+        res.status(201).json({ message: "Solicitud guardada con éxito" });
+    } catch (err) {
+        res.status(500).json({ message: "Error al guardar la solicitud", error: err });
+    }
+});
+
+// Eliminar una solicitud por su ID
+routerSolicitudes.delete("/solicitudes/:id", async (req, res) => {
+    try {
+        const solicitudEliminada = await Solicitudes.findByIdAndDelete(req.params.id);
+        if (!solicitudEliminada) {
+            return res.status(404).json({ message: "Solicitud no encontrada para eliminar" });
+        }
+        res.status(200).json({ message: "Solicitud eliminada con éxito" });
+    } catch (err) {
+        res.status(500).json({ message: "Error al eliminar la solicitud", error: err });
     }
 });
 

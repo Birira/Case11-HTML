@@ -5,8 +5,8 @@ const solicitudesSchema = new Schema({
     rut: { type: String, required: true },
     product: { type: String, required: true },
     email: { type: String, required: true },
-    solicitud: { type: String, required: true },
+    solicitud: { type: String, default: "Sin descripción" },
     status: { type: String, required: true },
 });
 
-module.exports = model("solicitudes", solicitudesSchema);
+module.exports = model("Solicitudes", solicitudesSchema);

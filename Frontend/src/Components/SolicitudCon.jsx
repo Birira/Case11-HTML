@@ -7,11 +7,13 @@ export const SolicitudCon = () => {
     const [solicitudes, setSolicitudes] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [solicitudEditando, setSolicitudEditando] = useState(null);
+    const [productoFiltro, setProductoFiltro] = useState("");
+    const [estadoFiltro, setEstadoFiltro] = useState("");
 
     // Obtener solicitudes desde el backend
     const fetchSolicitudesConsultar = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/Solicitudes"); // Cambia la URL por la de tu API
+            const response = await fetch("http://localhost:3000/api/solicitudes"); // Cambia la URL por la de tu API
             const data = await response.json();
             setSolicitudes(data);
         } catch (error) {
@@ -19,10 +21,39 @@ export const SolicitudCon = () => {
         }
     };
 
+    // Filtrar solicitudes por producto y estado
+    const filtrarSolicitudes = () => {
+        return solicitudes.filter((solicitud) => {
+            const coincideProducto = productoFiltro ? solicitud.product.includes(productoFiltro) : true;
+            const coincideEstado = estadoFiltro ? solicitud.status === estadoFiltro : true;
+            return coincideProducto && coincideEstado;
+        });
+    };
+
+    // Filtrar las solicitudes por RUT desde la API
+    const buscarSolicitudesPorRut = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/solicitudes/rut/${busqueda}`); // Ruta para buscar por RUT
+            if (!response.ok) {
+                throw new Error("No se encontraron solicitudes con ese RUT.");
+            }
+            const data = await response.json();
+            if (data.length === 0) {
+                alert("No se encontraron solicitudes con ese RUT.");
+                setSolicitudes([]); // Limpiar la lista de solicitudes
+            } else {
+                setSolicitudes(data);
+            }
+        } catch (error) {
+            console.error("Error al buscar solicitudes por RUT:", error);
+            alert(error.message); // Mostrar el mensaje de error
+        }
+    };
+
     // Función para actualizar la solicitud en el backend
     const actualizarSolicitud = async (id, datosActualizados) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/Solicitudes/${id}`, {
+            const response = await fetch(`http://localhost:3000/api/solicitudes/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,13 +75,6 @@ export const SolicitudCon = () => {
             console.error("Error al actualizar la solicitud:", error);
         }
     };
-
-    // Filtrar las solicitudes por RUT
-    const solicitudesFiltradas = busqueda
-        ? solicitudes.filter((solicitud) =>
-            solicitud.rut.toLowerCase().includes(busqueda.toLowerCase())
-        )
-        : solicitudes;
 
     useEffect(() => {
         fetchSolicitudesConsultar();
@@ -76,24 +100,38 @@ export const SolicitudCon = () => {
                         value={busqueda}
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
-                    <button onClick={() => console.log("Busqueda realizada")} className="btn btn-primary">Buscar</button>
+                    <button onClick={buscarSolicitudesPorRut} className="btn btn-primary">Buscar</button>
+
+                    <div className="filtros">
+
+                        <select
+                            value={estadoFiltro}
+                            onChange={(e) => setEstadoFiltro(e.target.value)}
+                            className="filtro-estado"
+                        >
+                            <option value="">Filtrar por Estado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobada">Aprobada</option>
+                            <option value="Rechazada">Rechazada</option>
+                        </select>
+                    </div>
 
                     <table className="tabla-solicitudes">
                         <thead>
                             <tr>
                                 <th>RUT</th>
                                 <th>Usuario</th>
-                                <th>Fecha Solicitud</th>
+                                <th>Producto</th>
                                 <th>Estado</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {solicitudesFiltradas.map((solicitud) => (
+                            {filtrarSolicitudes().map((solicitud) => (
                                 <tr key={solicitud._id}>
                                     <td>{solicitud.rut}</td>
                                     <td>{solicitud.user}</td>
-                                    <td>{solicitud.fechaSolicitud}</td>
+                                    <td>{solicitud.product}</td>
                                     <td>{solicitud.status}</td>
                                     <td>
                                         <button 
@@ -127,36 +165,40 @@ const FormularioEditar = ({ solicitud, onSave, onCancel }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="formulario-editar">
-            <h2>Editar Solicitud</h2>
-            <input
-                type="text"
-                value={datos.rut}
-                onChange={(e) => setDatos({ ...datos, rut: e.target.value })}
-                placeholder="RUT"
-            />
-            <input
-                type="text"
-                value={datos.user}
-                onChange={(e) => setDatos({ ...datos, user: e.target.value })}
-                placeholder="Usuario"
-            />
-            <textarea
-                value={datos.product}
-                onChange={(e) => setDatos({ ...datos, product: e.target.value })}
-                className="textarea-field"
-                placeholder="Descripción"
-            />
-            <select
-                value={datos.status}
-                onChange={(e) => setDatos({ ...datos, status: e.target.value })}
-            >
-                <option value="Pendiente">Pendiente</option>
-                <option value="Aprobada">Aprobada</option>
-                <option value="Rechazada">Rechazada</option>
-            </select>
-            <button type="submit" className="btn btn-primary">Guardar</button>
-            <button type="button" onClick={onCancel} className="btn btn-secondary">Cancelar</button>
-        </form>
+        <div className="modal-overlay"> {/* Capa de fondo oscurecido */}
+            <div className="modal-content"> {/* Contenido del modal */}
+                <form onSubmit={handleSubmit} className="formulario-editar">
+                    <h2>Editar Solicitud</h2>
+                    <input
+                        type="text"
+                        value={datos.rut}
+                        onChange={(e) => setDatos({ ...datos, rut: e.target.value })}
+                        placeholder="RUT"
+                    />
+                    <input
+                        type="text"
+                        value={datos.user}
+                        onChange={(e) => setDatos({ ...datos, user: e.target.value })}
+                        placeholder="Usuario"
+                    />
+                    <textarea
+                        value={datos.product}
+                        onChange={(e) => setDatos({ ...datos, product: e.target.value })}
+                        className="textarea-field"
+                        placeholder="Descripción"
+                    />
+                    <select
+                        value={datos.status}
+                        onChange={(e) => setDatos({ ...datos, status: e.target.value })}
+                    >
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aprobada">Aprobada</option>
+                        <option value="Rechazada">Rechazada</option>
+                    </select>
+                    <button type="submit" className="btn btn-primary">Guardar</button>
+                    <button type="button" onClick={onCancel} className="btn btn-secondary">Cancelar</button>
+                </form>
+            </div>
+        </div>
     );
 }
