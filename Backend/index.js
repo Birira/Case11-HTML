@@ -28,6 +28,7 @@ app.use("/api", require("./routes/getUsers"));
 app.use("/api", require("./routes/getInventory"));
 app.use("/api", require("./routes/getSolicitudes"));
 app.use("/api", require("./routes/postInventory"));
+app.use("/api", require("./routes/getDevoluciones"));
 
 
 //archivos estaticos

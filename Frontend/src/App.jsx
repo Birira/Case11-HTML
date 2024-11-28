@@ -6,10 +6,11 @@ import { AdminPanel } from "./Components/AdminPanel";
 import { Solicitud } from "./Components/Solicitud";
 import { SolicitudCrear } from "./Components/SolicitudCrear";
 import { SolicitudCon } from "./Components/SolicitudCon";
-import { Devoluciones } from "./Components/Devoluciones";
+import { Devoluciones } from "./Components/Devoluciones.jsx";
 import { Inventory } from "./Components/Inventory";
 import { AddAdmin } from "./Components/AddAdmin";
 import { AddUser } from "./Components/AddUser";
+import {HDevoluciones} from "./Components/HDevoluciones.jsx";
 
 function App() {
 
@@ -22,8 +23,8 @@ function App() {
           <Route path='/AdminUser' element={<AdminUsers />}></Route>
           <Route path='/AdminPanel' element={<AdminPanel />}></Route>
 
-          <Route path="/Devoluciones" element={<Devoluciones />}></Route>
-
+          <Route path="/Devoluciones/:id" element={<Devoluciones />}></Route>
+          <Route path="/HDevoluciones" element={<HDevoluciones />}></Route>
           <Route path='/Solicitud' element={<Solicitud />}></Route>
           <Route path='/SolicitudCrear' element={<SolicitudCrear/>}></Route>
           <Route path='/SolicitudCon' element={<SolicitudCon/>}></Route>
