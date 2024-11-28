@@ -11,43 +11,38 @@ export const SolicitudCrear= () => {
         <button type="button" className="btn btn-secondary">Volver</button>
         </Link>
         <div className="title-to-Solicitud">
-            <h1>Consultar Solicitudes de Pañol</h1>
+            <h1>Crear Solicitud</h1>
         </div>
-
-        <div >
         <center>
-        <input className="search-bar-to-SolicitudCon" type="text" id="search" placeholder="Buscar solicitud..."/>  
-        <button>Enviar</button>
-        <table className="lookup-table-to-SolicitudCon">
-            <td>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre del producto</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </td>   
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Cámara, Trípode</td>
-                    <td>Pendiente</td>
-                    <td >
-                    <button type="button" className="btn btn-secondary">Editar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Micrófono</td>
-                    <td>Aprobado</td>
-                    <td >
-                    <button type="button" className="btn btn-secondary">Editar</button>
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            </center>
-            </div>
+        <form >
+            <input type="text" name="Nombre" placeholder="Ingrese su nombre" /> 
+            <input type="text" name="Rut" placeholder="Ingrese su Rut" /> 
+            <input type="text" name="SolicitudObjeto"  placeholder="Ingrese el nombre del articulo que desea"/> 
+            <input type="email" name="Email" placeholder="Ingrese su Email" /> 
+            <input type="text" name="Mensaje" placeholder="Ingrese un mensaje (opcional)" /> 
+        </form>
+        <button onClick={ e=> formularioCrearS(e)} name="Crear_Solicitud"> Crear_Solicitud</button>
+        </center>
+
             </>
+        )
+    }
+    const formularioCrearS= (e) =>{
+        let datosFormulario= document.getElementsByName("formularioSolicitud").item(0);
+        let solForm ={
+            "Nombre": datosFormulario.nombre.value,
+            "Rut": datosFormulario.rut.value,
+            "SolicitudObjeto": datosFormulario.solicitudObjeto.value,
+            "Email": datosFormulario.email.value,
+            "Mensaje": datosFormulario.extra.value
+        }
+        setTimeout(async ()=>{
+            const requestOptions = {
+                method:'POST',
+                headers: {'Content-Type':''}
+                body: JSON.stringify{}
+            }
+        }
+
         )
     }
